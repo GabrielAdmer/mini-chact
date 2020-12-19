@@ -294,7 +294,7 @@ class Server {
 		this.port = process.env.PORT;
 ```
 
-#Desplegar en Heroku
+# Desplegar en Heroku
 
 Creamos nuestra cuenta en heroku y creamos nuestra app **create-app**
 
@@ -328,5 +328,42 @@ Eso lo vemos gracias a que posimos un **clg en**
 				this.io.emit('mensaje-from-client', data);
 			});
 		});
+	}
+```
+
+# Probar el socket server en produccion
+
+Hacemos lo el cambio en el index html en el scrip cambiamos el puerto con la url donde esta deblegado nuetro mini-chat
+
+```html
+<script>
+			const socket = io('https://remini-chat.herokuapp.com/');
+
+			//referencia al html
+```
+
+Y listo la aplicacion funciona
+
+# Habilitar Cors
+
+Sólo hay algo que me hace falta configurar y ahora es necesario en la versión 3.0 o superior de socket
+
+y o si y sólo si nosotros queremos que otros clientes se conecten a nuestro socket server.
+
+Si no están en el mismo dominio y estamos hablando de un problema de Cours, entonces tenemos que habilitar cors en nuestro backend
+
+    	$ npm i cors
+
+models/server.js
+
+```javascript
+const cors = require('cors');
+
+	middlewares() {
+		//desplegar el directorio publico
+		this.app.use(express.static(path.resolve(__dirname, '../public')));
+
+		//CORS
+		this.app.use(cors());
 	}
 ```
