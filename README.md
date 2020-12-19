@@ -293,3 +293,40 @@ class Server {
 		this.app = express();
 		this.port = process.env.PORT;
 ```
+
+#Desplegar en Heroku
+
+Creamos nuestra cuenta en heroku y creamos nuestra app **create-app**
+
+Luego instalamos el CLI
+
+Luego en la terminal seguir estos comandos:
+
+La pagina Heroku para los comandos [Heroku](https://dashboard.heroku.com/apps/remini-chat/deploy/heroku-git 'Heroku')
+
+    	$ heroku login
+
+abre el navegador web para la autenticacion
+
+    	$ heroku git:remote -a remini-chat
+    	$ git push heroku master
+
+Open appLuego hacemos click en Open app
+
+Ejecutamos el suguiente comando para saber en que puerto se esta ejecutando:
+
+    	$ heroku logs -n 1000 --tail
+
+Eso lo vemos gracias a que posimos un **clg en**
+
+```javascript
+	sockecttEnvent() {
+		this.io.on('connection', (socket) => {
+			//escuchamos evento: mensage-to-server
+			socket.on('mensaje-to-server', (data) => {
+				console.log(data);
+				this.io.emit('mensaje-from-client', data);
+			});
+		});
+	}
+```
